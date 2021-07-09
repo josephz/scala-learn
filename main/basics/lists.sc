@@ -23,10 +23,23 @@ output: {1, 3, 5}
 */
 // approach 1, use zip with index
 def remove_odd(arr: List[Int]): List[Int] = {
-  arr.view.zipWithIndex.filter {_._2 % 2 != 0}.map {_._1}.toList
+  arr.view.zipWithIndex.filter {
+    _._2 % 2 != 0
+  }.map {
+    _._1
+  }.toList
 }
 
 // approach 2, use for loop
 def remove_odd(arr: List[Int]): List[Int] = {
   for ((a, b) <- arr.zipWithIndex if b % 2 == 1) yield a
 }
+
+/*
+Given a list, get the sum of odd elements from the given list
+input: arr = {2, 3, 4, 9, 8}
+output: 12
+ */
+def sum_odd(arr: List[Int]): Int = arr.filter(_ % 2 != 0).sum
+// Note: -3 % 2 == -1, so checking _%2 == 1 won't work
+// or use reduceLeft(_+_) instead of sum
