@@ -4,12 +4,29 @@ repeat each element in the list $num of times.
 input: arr = {1, 2, 3}; num = 3
 output: {1, 1, 1, 2, 2, 2, 3, 3, 3}
 */
-// approach 1
-def f(num: Int, arr: List[Int]): List[Int] = for {
+// approach 1: use for loop
+def repeater(num: Int, arr: List[Int]): List[Int] = for {
   a <- arr
   i <- 1 to num
 } yield a
 
-// approach 2
-def f(num: Int, arr: List[Int]): List[Int] = arr.flatMap(List.fill(num)(_))
-// or def f(num: Int, arr: List[Int]): List[Int] = arr.flatMap(e => List.fill(num)(e))
+// approach 2: use flat map
+def repeater(num: Int, arr: List[Int]): List[Int] = arr.flatMap(List.fill(num)(_))
+// or def repeater(num: Int, arr: List[Int]): List[Int] = arr.flatMap(e => List.fill(num)(e))
+
+
+/*
+For a given list with N integers,
+return a new list removing the elements at odd positions.
+input: arr = { 1, 2, 3, 4, 5}
+output: {1, 3, 5}
+*/
+// approach 1, use zip with index
+def remove_odd(arr: List[Int]): List[Int] = {
+  arr.view.zipWithIndex.filter {_._2 % 2 != 0}.map {_._1}.toList
+}
+
+// approach 2, use for loop
+def remove_odd(arr: List[Int]): List[Int] = {
+  for ((a, b) <- arr.zipWithIndex if b % 2 == 1) yield a
+}
