@@ -1,4 +1,26 @@
 object listsUtil {
+  /* Get n sets of input.
+     Each input starts with a number k, followed by k pairs of numbers
+     example:
+     2
+     3
+     1 2
+     3 4
+     4 7
+     2
+     11 11
+     22 22
+   */
+  def get_input(): Unit = {
+    val n = io.StdIn.readInt()
+    (1 to n).foreach {
+      i =>
+        val k = io.StdIn.readInt()
+        val list = (1 to k).map(x => io.StdIn.readLine.split("\\s+")(0)).toList
+        // list contains the first elements of the k pair.
+    }
+  }
+
   /*
   Given a list $arr and a number $num,
   repeat each element in the list $num of times.
