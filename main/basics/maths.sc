@@ -43,6 +43,7 @@ object mathsUtil {
     // form the polygonal line, by appending the head point to the end of the list
     val polygLine = points :+ points.head
 
+    // starting from the 2nd left of the list, accumulate the distance
     val perimeter = polygLine.tail.foldLeft((0.0, polygLine.head)) {
       case (acc, p) => (acc._1 + distance(acc._2, p), p)
     }._1
