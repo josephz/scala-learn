@@ -1,4 +1,4 @@
-
+import scala.annotation.tailrec
 
 object mathsUtil {
   /*
@@ -62,4 +62,9 @@ object mathsUtil {
 
     println(area)
   }
+
+  /* Compute GCD of two integers
+   */
+  @tailrec
+  def gcd(x: Int, y: Int): Int = if (x == 0 || y == 0) x + y else gcd(y, x % y)
 }
