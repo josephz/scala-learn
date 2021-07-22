@@ -67,4 +67,8 @@ object mathsUtil {
    */
   @tailrec
   def gcd(x: Int, y: Int): Int = if (x == 0 || y == 0) x + y else gcd(y, x % y)
+
+  /* Compute Fibonacci numbers
+   */
+  def fibonacci(x: Int) : Int = if (x==1 || x==2) x-1 else fibonacci(x-1) + fibonacci(x-2)
 }
