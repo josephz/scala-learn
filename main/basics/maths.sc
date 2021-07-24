@@ -70,5 +70,51 @@ object mathsUtil {
 
   /* Compute Fibonacci numbers
    */
-  def fibonacci(x: Int) : Int = if (x==1 || x==2) x-1 else fibonacci(x-1) + fibonacci(x-2)
+  def fibonacci(x: Int): Int = if (x == 1 || x == 2) x - 1 else fibonacci(x - 1) + fibonacci(x - 2)
+
+  /* Print Pascal's Triangle
+   1- the brute-force way, which calculates the factorials
+   2- the dynamic programming way, which builds items in the row one by one
+   3- the dynamic programming way, which builds row n+1 from row n
+   val digit = io.Source.stdin.getLines.take(1).map(_.trim.toInt).next()
+   */
+  def pascal_1(digit: Int): Unit = {
+    def factorial(num: Int) = (1 to num).product
+
+    (0 until digit).foreach(n => {
+      (0 to n).foreach(r => {
+        print(factorial(n) / (factorial(r) * factorial(n - r)) + " ")
+      })
+      println()
+    })
+  }
+
+  def pascal_2(digit: Int): Unit = {
+    def nthRow(n: Int): List[Int] = {
+      val row = List(1)
+      (0 until n).foldLeft[List[Int]](row)((acc, r) => acc.head * (n - r) / (r + 1) :: acc)
+    }
+
+    (0 until digit).foreach(
+      i => {
+        nthRow(i).foreach(x => print(x + " "))
+        println()
+      }
+    )
+  }
+
+  def pascal_3(digit: Int): Unit = {
+    var rolling_row = List[Int](1)
+
+    (0 until digit).foreach(n => {
+      // print the current row
+      for (item <- rolling_row) print(item + " ")
+      println()
+      // build the next row
+      if (n != 0) {
+        rolling_row = 1 :: rolling_row.sliding(2).map(_.sum).toList
+        rolling_row = rolling_row :+ 1
+      }
+    })
+  }
 }
