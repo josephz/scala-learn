@@ -117,4 +117,10 @@ object mathsUtil {
       }
     })
   }
+
+  /* Sierpinski triangles
+    http://en.wikipedia.org/wiki/Sierpinski_triangle
+    https://www.hackerrank.com/challenges/functions-and-fractals-sierpinski-triangles/problem
+    The Nth triangle The output will consist of 32 rows and 63 columns, and will be composed of ones (1) and underscores.
+   */
 }
