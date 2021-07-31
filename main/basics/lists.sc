@@ -69,4 +69,14 @@ object listsUtil {
   // Note: -3 % 2 == -1, so checking _%2 == 1 won't work
   // or use reduceLeft(_+_) instead of sum
 
+  /*
+  Given two lists, zip the content and flatten the output
+  input: List(a, b, c, d, e);  List(p, q, r, s, t)
+  output: apbqcrdset
+   */
+  def zip_lists(p: List[Int], q:List[Int]): Unit = {
+    val z = p.lazyZip(q).flatMap(List(_, _))
+    z.foreach(print)
+  }
+
 }
