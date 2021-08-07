@@ -17,9 +17,9 @@ object listsUtil {
       i =>
         val k = io.StdIn.readInt()
         val list = (1 to k).map(x => io.StdIn.readLine.split("\\s+")(0)).toList
-        // list contains the first elements of the k pair.
-        // or take the pair: pair = io.StdIn.readLine().trim().split(" ").map(x=>x.toInt).toList
-        // then the list is a pair: (pair.head, pair.reverse.head)
+      // list contains the first elements of the k pair.
+      // or take the pair: pair = io.StdIn.readLine().trim().split(" ").map(x=>x.toInt).toList
+      // then the list is a pair: (pair.head, pair.reverse.head)
     }
   }
 
@@ -74,9 +74,19 @@ object listsUtil {
   input: List(a, b, c, d, e);  List(p, q, r, s, t)
   output: apbqcrdset
    */
-  def zip_lists(p: List[Int], q:List[Int]): Unit = {
+  def zip_lists(p: List[Int], q: List[Int]): Unit = {
     val z = p.lazyZip(q).flatMap(List(_, _))
     z.foreach(print)
   }
 
+  /*
+  Read in even-numbered char strings, swap adjacent char in each string and print
+  input: abcdpqrs
+  output: badcqpsr
+   */
+  def swap_char() = {
+    io.Source.stdin.getLines.toList
+      .map(_.grouped(2).map(_.reverse).mkString(""))
+      .map(println)
+  }
 }
