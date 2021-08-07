@@ -36,4 +36,14 @@ object stringsUtil {
     process(input.toList)
   }
 
+  /*
+  Find the common prefix of two strings, and their remainders
+  input: s1 = abcdefpr; s2 = abcpqr
+  output: (abc, defpr, pqr)
+   */
+  def prefix_remainder(s1: String, s2: String): (String, String, String) = {
+    val prefix = s1.zip(s2).takeWhile { case (xc, yc) => xc == yc }.map(_._1).mkString("")
+    val p_length = prefix.length
+    (prefix, s1.drop(p_length), s2.drop(p_length))
+  }
 }
