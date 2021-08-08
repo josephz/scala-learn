@@ -46,4 +46,19 @@ object stringsUtil {
     val p_length = prefix.length
     (prefix, s1.drop(p_length), s2.drop(p_length))
   }
+
+  /*
+  De-duplicate characters in a string
+  Input: accabb
+  Output: acb
+  Note: the output of each approach is different in their letter orders
+   */
+  // approach 1: use foldLeft -- preserves occurrence's order
+  def string_reduction(s: String): String = s.toList.foldLeft("")((b, a) => if (b.contains(a)) b else b + a)
+
+  // approach 2: use set -- order may not be preserved
+  def string_reduction2(s: String): String = s.toSet.mkString("")
+
+  // approach 3: use distinct -- preserves order
+  def string_reduction3(s: String): String = s.toList.distinct.mkString("")
 }
