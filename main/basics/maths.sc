@@ -118,6 +118,33 @@ object mathsUtil {
     })
   }
 
+  /*
+  Count the ways of sum of powers
+  Input: X, the target sum
+         N, the power factor
+  Output: number of ways that X can be expressed as the sum of the Nth power of unique, natural numbers.
+  e.g.
+  input: X=100, N=2
+  output: 3
+  because 100 = 10^2 = 6^2 + 8^2 = 1^2 + 3^2 + 4^2 + 5^2 + 7^2
+   */
+  def numberOfWays(x: Int, n: Int): Int = {
+    // get the list of all candidates -- Nth power of unique natural numbers, that are less than X
+    val maxCandidate = math.floor(math.pow(x, 1.0 / n)).toInt
+    val poweredCandidates = (1 to maxCandidate).map(math.pow(_, n).toInt).toList
+
+    // build the sum using Dynamic programming way
+    def count(s: Int, candidates: List[Int]): Int = candidates match {
+      case Nil => 0   // empty list, none found
+      case c :: cs =>
+        if (c == s) 1 // found exact match at head
+        else if (c > s) count(s, cs)  // 0 found. The list is in ascending order, exhaust the list anyway.
+        else count(s - c, cs) + count(s, cs)  // search for either the composite (s-c) or exact match (s)
+    }
+
+    count(x, poweredCandidates)
+  }
+
   /* Sierpinski triangles
     http://en.wikipedia.org/wiki/Sierpinski_triangle
     https://www.hackerrank.com/challenges/functions-and-fractals-sierpinski-triangles/problem
