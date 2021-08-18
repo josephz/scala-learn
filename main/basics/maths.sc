@@ -135,14 +135,38 @@ object mathsUtil {
 
     // build the sum using Dynamic programming way
     def count(s: Int, candidates: List[Int]): Int = candidates match {
-      case Nil => 0   // empty list, none found
+      case Nil => 0 // empty list, none found
       case c :: cs =>
         if (c == s) 1 // found exact match at head
-        else if (c > s) count(s, cs)  // 0 found. The list is in ascending order, exhaust the list anyway.
-        else count(s - c, cs) + count(s, cs)  // search for either the composite (s-c) or exact match (s)
+        else if (c > s) count(s, cs) // 0 found. The list is in ascending order, exhaust the list anyway.
+        else count(s - c, cs) + count(s, cs) // search for either the composite (s-c) or exact match (s)
     }
 
     count(x, poweredCandidates)
+  }
+
+  /*
+  Digit sum of a number
+  e.g.
+  input: n=123
+  output: 6
+   */
+  def digitSum(n: String): Int = n.map(_.asDigit).sum
+
+  /*
+  Super Digit of an integer x using the following rules:
+    - If x has only 1 digit, then its super digit is x.
+    - Otherwise, the super digit of x is equal to the super digit of the digit-sum of x.
+      Here, digit-sum of a number is defined as the sum of its digits.
+    e.g. super digit of 9875 is 2. Because 9+8+7+5=29 -> 2+9=11 -> 1+1=2
+  Input: n the integer
+  output: super digit of n
+  Note: n can be very large and cause overflow
+   */
+  @tailrec
+  def superDigit(n: String): Long = n.length match {
+    case 1 => n.toLong
+    case _ => superDigit(n.chars().filter(_ != 48).map(_ - 48).asLongStream().sum().toString)
   }
 
   /* Sierpinski triangles
