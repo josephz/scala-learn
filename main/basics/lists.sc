@@ -78,4 +78,20 @@ object listsUtil {
     val z = p.lazyZip(q).flatMap(List(_, _))
     z.foreach(print)
   }
+
+  /*
+  Filter elements which are repeated at least K times
+  input: K=2, array = {4, 5, 2, 5, 4, 3, 1, 3, 4}
+  output: 4 5 3  // array
+  input: K=4, array = {4, 5, 2, 5, 4, 3, 1, 3, 4}
+  output: nil   // not found
+   */
+  def filterElements(k: Int, arr: Array[Int]): Array[Int] = {
+    val occurrences = arr.groupMapReduce(identity)(_ => 1)(_ + _)
+    //groups list elements (group part of groupMapReduce)
+    //maps each grouped value occurrence to 1 (map part of groupMapReduce)
+    //reduces values within a group of values (_ + _) by summing them (reduce part of groupMapReduce).
+    // before v2.13    val occurrences = arr.groupBy(identity).mapValues(_.length)
+    arr.distinct.filter(occurrences(_) >= k)
+  }
 }
