@@ -169,6 +169,31 @@ object mathsUtil {
     case _ => superDigit(n.chars().filter(_ != 48).map(_ - 48).asLongStream().sum().toString)
   }
 
+  /*
+  GCD from lists
+  Given a number of lists -- each list represents a number in its prime factors & powers, find the GCD of the numbers
+  e.g.
+  input: 2        // two numbers
+        7 2       // 7^2
+        2 2 7 1   // 2^2 * 7^1
+  output: 7 1     // GCD of the two numbers is 7^1
+   */
+  def gcdLists(lstSize: Int) {
+    // get the first list as an initial Map object, which is also the result set
+    var originalDict = io.StdIn.readLine.split(" ").map(_.toInt).grouped(2).map(e => (e.head, e.reverse.head)).toMap
+    // for the rest, find the common factors, and find the minimum power of the factor
+    for (_ <- 2 to lstSize) {
+      // get the next list
+      val updateDict = io.StdIn.readLine.split(" ").map(_.toInt).grouped(2).map(e => (e.head, e.reverse.head)).toMap
+      // get the common intersection of factors
+      val keys = originalDict.keySet & updateDict.keySet
+      // update the result set with the common factors and min power
+      originalDict = keys.map(k => k -> math.min(originalDict(k), updateDict(k))).toMap
+    }
+    // sorted by keys and display as string
+    originalDict.toList.sortBy(_._1).flatten { case (a, b) => List(a, b) }.mkString(" ")
+  }
+
   /* Sierpinski triangles
     http://en.wikipedia.org/wiki/Sierpinski_triangle
     https://www.hackerrank.com/challenges/functions-and-fractals-sierpinski-triangles/problem
