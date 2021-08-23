@@ -194,6 +194,20 @@ object mathsUtil {
     originalDict.toList.sortBy(_._1).flatten { case (a, b) => List(a, b) }.mkString(" ")
   }
 
+  /*
+  Fibonacci number by LazyList (used to be Stream)
+  https://www.scala-lang.org/api/2.13.2/scala/collection/immutable/LazyList.html
+   */
+  // approach 1: compute as a Value list, time and space efficient
+  val fibs: LazyList[BigInt] = BigInt(0) #:: BigInt(1) #:: fibs.zip(fibs.tail).map { case (x, y) => x + y }
+
+  // approach 2: each time, compute as a function call
+  def fibs_2: LazyList[Int] = {
+    def loop(f0: Int, f1: Int): LazyList[Int] = f0 #:: loop(f1, f0 + f1)
+
+    loop(0, 1)
+  }
+
   /* Sierpinski triangles
     http://en.wikipedia.org/wiki/Sierpinski_triangle
     https://www.hackerrank.com/challenges/functions-and-fractals-sierpinski-triangles/problem
