@@ -4,6 +4,10 @@ object mathsUtil {
   /*
   e.g., to read in line as Integer
   stdin = scala.io.StdIn.readLine.trim.toInt
+
+  // call with lambda function
+  val f = () => io.StdIn.readLine()
+  val (_, a, _, b) = (f(), product(f()), f(), product(f()))
    */
 
   /* Evaluating Euler constants to the 10th term:
