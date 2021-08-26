@@ -61,4 +61,12 @@ object stringsUtil {
 
   // approach 3: use distinct -- preserves order
   def string_reduction3(s: String): String = s.toList.distinct.mkString("")
+
+  /*
+  Rotate characters in a string. Given a string of length n, display all n rotations of string.
+  Input: abc
+  Output: abc, bca, cab
+   */
+  def string_rotate(s: String): String = s.scanLeft(s)((t, _) => t.tail + t.head).drop(1).mkString(", ")
+  // need to drop the last one from the vector which is the duplicate of the first one.
 }
