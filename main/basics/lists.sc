@@ -94,4 +94,32 @@ object listsUtil {
     // before v2.13    val occurrences = arr.groupBy(identity).mapValues(_.length)
     arr.distinct.filter(occurrences(_) >= k)
   }
+
+  /*
+  Count the occurrences in the list of generic items
+  e.g.
+  input: List(13, 16, 12, 13, 19, 12, 13)
+  output: Map(13 -> 3, 16 -> 1, 12 -> 2, 19 -> 1)
+   */
+  def countMap[T](l: List[T]): Map[T, Int] = {
+    val m = Map.empty[T, Int].withDefaultValue(0)
+    l.foldLeft(m)((m, e) => m + (e -> (m(e) + 1)))
+  }
+
+  /*
+  List out the missing items from List B in List A
+  input: List A and List B
+  output: distinct list of items that in List B but not in list A
+  Note: the count of the items matters
+  e.g.
+  input: A: List(12, 13, 16, 12)
+         B: List(13, 16, 12, 13, 19, 12, 13)
+  output: List(13, 19)
+   */
+  def missingValues[T](A: List[T], B: List[T]): List[T] = {
+    val (mapA, mapB) = (countMap(A), countMap(B))
+    (mapA.keySet | mapB.keySet)
+      .filterNot(n => mapA(n) == mapB(n))
+      .toList
+  }
 }
