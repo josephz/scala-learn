@@ -8,6 +8,13 @@ object mathsUtil {
   // call with lambda function
   val f = () => io.StdIn.readLine()
   val (_, a, _, b) = (f(), product(f()), f(), product(f()))
+
+  // form a function
+  import scala.io.StdIn.{readInt, readLine}
+  def readList: List[Int] = {
+    val _ = readInt
+    readLine.split(' ').map(_.toInt).toList
+  }
    */
 
   /* Evaluating Euler constants to the 10th term:
