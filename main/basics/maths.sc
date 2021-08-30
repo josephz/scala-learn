@@ -219,6 +219,19 @@ object mathsUtil {
     loop(0, 1)
   }
 
+  /*
+  Find the common divisors of a list of integers
+  e.g.
+  input: list(288, 240)
+  output: {1,2,3,4,6,8,12,16,24,48}
+   */
+  def getDivisors(l: List[Int]): Set[Int] = {
+    val x = l.min // start with the smallest number to get a smallest divisor set
+    var set = (1 to x).filter(x % _ == 0).toSet
+    l.foreach(i => if (i != x) set = set.filter(i % _ == 0))
+    set
+  }
+
   /* Sierpinski triangles
     http://en.wikipedia.org/wiki/Sierpinski_triangle
     https://www.hackerrank.com/challenges/functions-and-fractals-sierpinski-triangles/problem
