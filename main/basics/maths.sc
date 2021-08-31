@@ -227,7 +227,15 @@ object mathsUtil {
    */
   def getDivisors(l: List[Int]): Set[Int] = {
     val x = l.min // start with the smallest number to get a smallest divisor set
-    var set = (1 to x).filter(x % _ == 0).toSet
+
+    // approach 1: a brute-force search from all divisors of x
+    //var set = (1 to x).filter(x % _ == 0).toSet
+    // approach 2: first find the smaller half of the divisors, then find their complements
+    // This approach runs faster, as the search space is smaller
+    var set = (1 to math.sqrt(x).ceil.toInt).filter(x % _ == 0).toSet
+    set = set ++ set.map(x / _)
+
+    // check against every other elements in the list
     l.foreach(i => if (i != x) set = set.filter(i % _ == 0))
     set
   }
