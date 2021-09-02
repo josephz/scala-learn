@@ -122,4 +122,26 @@ object listsUtil {
       .filterNot(n => mapA(n) == mapB(n))
       .toList
   }
+
+  /*
+  Given a list of integers, count the minimum number of integers required, so that the sum reach a target value.
+  e.g.
+  input: target = 10
+         A: List(1, 2, 3, 4, 5, 6, 7)
+  output: 2
+  // it requires at least two number in list A to reach target 10. for example, 5+7 > 10
+  // if the target cannot be reached, return -1
+   */
+  def numForSum(target: Long, A: List[Long]): Int = {
+    val max = A.sum
+    if (target > max) return -1
+
+    var count = 0
+    var current: Long = 0
+    A.sorted(Ordering.Long.reverse).iterator.takeWhile(_ => target > current).foreach(k => {
+      current = current + k
+      count = count + 1
+    })
+    count
+  }
 }
