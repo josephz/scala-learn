@@ -132,6 +132,7 @@ object listsUtil {
   // it requires at least two number in list A to reach target 10. for example, 5+7 > 10
   // if the target cannot be reached, return -1
    */
+  // approach 1: with list and iterator
   def numForSum(target: Long, A: List[Long]): Int = {
     val max = A.sum
     if (target > max) return -1
@@ -143,5 +144,18 @@ object listsUtil {
       count = count + 1
     })
     count
+  }
+
+  // approach 2: with array and binary search
+  // this approach is faster as the searching takes O(N) time
+  def numForSum2(target: Long, A: Array[Long]): Int = {
+    // found the accumulated running sum of the numbers
+    val accumulated = A.sorted(Ordering.Long.reverse).scanLeft(0L)(_ + _).tail
+    // locate the position of the sums so that sumA <= target <= sumB
+    val pos = java.util.Arrays.binarySearch(accumulated, target)
+
+    val res = if (pos == accumulated.length) -1 else if (pos >= 0) pos + 1
+              else if (pos.abs > accumulated.length) -1 else pos.abs
+    res
   }
 }
